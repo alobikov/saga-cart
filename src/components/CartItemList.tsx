@@ -2,14 +2,19 @@ import React from 'react';
 import CartItem from "./CartItem";
 import {useSelector, useDispatch} from 'react-redux'
 import {RootState} from "../store";
-import {itemAmountInc} from "../store/cart";
+import * as sagaAction from '../store/sagas/actions'
 
-const CartItemList = () => {
-    const items = useSelector((state: RootState) => state.cart.items || [])
+const CartItemList: React.FC = () => {
     const dispatch = useDispatch()
+    const items = useSelector((state: RootState) => state.cart.items || [])
+    const itemDetailsByIds = useSelector((state: RootState)=> state.items)
 
-    const handleIncrement = (id: string, value: number) => {
-        dispatch(itemAmountInc({id, value}))
+    const handleIncrement = (id: string) => {
+        dispatch(sagaAction.itemAdd(id))
+    }
+
+    const handleDecrement = (id: string) => {
+        dispatch(sagaAction.itemRemove(id))
     }
 
     return (
@@ -17,8 +22,11 @@ const CartItemList = () => {
             {
                 items.map(item =>
                     <CartItem
+                        key={item.id}
                         item={item}
-                        onIncrement={(n) => handleIncrement(item.id, n)}
+                        itemDetails={itemDetailsByIds[item.id]}
+                        onIncrement={() => handleIncrement(item.id)}
+                        onDecrement={() => handleDecrement(item.id)}
                     />)
             }
         </div>

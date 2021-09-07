@@ -1,14 +1,15 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IItem} from "../types/types";
 
-const initialState = <IItem[]>[]
+const initialState = <Record<string, IItem>>{}
 
 export const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
         addOne: (items, action: PayloadAction<IItem>) => {
-            items.push(action.payload)
+            const {id} = action.payload
+            items[id] = action.payload
         },
 
 
