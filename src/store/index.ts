@@ -5,6 +5,7 @@ import createSagaMiddleware  from 'redux-saga'
 import rootSaga from "./sagas";
 import items from "./items";
 import ui from './ui'
+import itemsPrice from './itemsPrice'
 
 const sagaMiddleware = createSagaMiddleware()
 export const store = configureStore({
@@ -12,7 +13,8 @@ export const store = configureStore({
         user,
         cart,
         items,
-        ui
+        ui,
+        itemsPrice
     },
     middleware: (getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware))
 })

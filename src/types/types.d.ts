@@ -26,3 +26,9 @@ export interface IItem {
     quantityAvailable: number;
     weight: number;
 }
+
+export interface  IItemPrice {
+    id: string,
+    symbol: string,
+    price: number
+}
