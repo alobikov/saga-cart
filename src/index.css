@@ -25,6 +25,11 @@ button {
     padding: 0.2em 0.4em;
     font-size: 1.5rem;
     min-width: 2.5rem;
+    cursor: pointer;
+    transition: background-color 200ms;
+}
+.btn-outlined:hover {
+    background-color: #bbb;
 }
 
 .mb-8 {

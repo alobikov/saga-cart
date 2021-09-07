@@ -8,6 +8,7 @@ const CartItemList: React.FC = () => {
     const dispatch = useDispatch()
     const items = useSelector((state: RootState) => state.cart.items || [])
     const itemDetailsByIds = useSelector((state: RootState)=> state.items)
+    const isFetching = useSelector((state: RootState)=> state.ui.itemQuantityIsFetching)
 
     const handleIncrement = (id: string) => {
         dispatch(sagaAction.itemAdd(id))
@@ -24,6 +25,7 @@ const CartItemList: React.FC = () => {
                     <CartItem
                         key={item.id}
                         item={item}
+                        isFetching={isFetching}
                         itemDetails={itemDetailsByIds[item.id]}
                         onIncrement={() => handleIncrement(item.id)}
                         onDecrement={() => handleDecrement(item.id)}
