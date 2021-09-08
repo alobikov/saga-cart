@@ -6,9 +6,12 @@ import UserInfo from "./UserInfo";
 import CartItemList from "./CartItemList";
 import {createSelector} from '@reduxjs/toolkit'
 import {IItem, ICartItem, IItemPrice} from "../types/types";
+import {fetchStatus} from "../store/ui";
 
 const MyComponent = () => {
         const user = useSelector((state: RootState) => state.user)
+        const {shippingFetchStatus} = useSelector((state: RootState) => state.ui)
+        const {shippingCost} = useSelector((state: RootState) => state.cart)
         const selectSubTotal = createSelector(
             [(state: RootState) => state.cart.items,
                 state => state.itemsPrice],
@@ -18,6 +21,7 @@ const MyComponent = () => {
                 }
             }
         )
+
         const subTotal = useSelector(selectSubTotal)
 
         return (
@@ -34,7 +38,12 @@ const MyComponent = () => {
                     </div>
                     {
                         subTotal ?
-                            <p>{`Sub Total: ${subTotal?.toFixed(2)}`}</p>
+                            <p className={styles.rightColumnItem}>{`Sub Total: ${subTotal?.toFixed(2)}`}</p>
+                            : null
+                    }
+                    {
+                        shippingFetchStatus === fetchStatus.FETCHED
+                            ? <p className={styles.rightColumnItem}>{`Shipping Cost: ${shippingCost}`}</p>
                             : null
                     }
                 </div>

@@ -12,7 +12,7 @@ export function* loadItemDetails(item: ICartItem) {
 }
 
 export function* itemDetailsSagaWorker({payload}: { payload: ICart }) {
-    const items = yield select((state: RootState)=> state.items)
+    const items: IItem[] = yield select((state: RootState)=> state.items)
     const itemsToLoad = payload.items.filter(item => !(item.id in items))
     yield all(itemsToLoad.map(item =>
         fork(loadItemDetails, item)

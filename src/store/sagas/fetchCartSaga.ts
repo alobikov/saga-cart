@@ -13,5 +13,4 @@ export function* fetchCartSagaWorker({payload}: {payload: IUser}){
 export function* fetchCartSaga() {
     //@ts-ignore
     yield takeEvery(user.loaded.type,fetchCartSagaWorker)
-    console.log('fetch cart')
 }

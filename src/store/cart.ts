@@ -10,7 +10,17 @@ export const cartSlice = createSlice({
         loaded: (cart, action: PayloadAction<ICart>) => {
             Object.assign(cart, action.payload)
         },
+
+        shippingCostReceived: (cart, action: PayloadAction<number>) => {
+            cart.shippingCost = action.payload
+        },
+
+        quantitySet: (cart: ICart, action: PayloadAction<{ id: string, quantity: number }>) => {
+            const {id, quantity} = action.payload
+            const item = cart.items.find(item => item.id === id)
+            if (item) item.quantity = quantity
+        }
     }
 })
-export const {loaded} = cartSlice.actions
+export const {loaded, shippingCostReceived, quantitySet} = cartSlice.actions
 export default cartSlice.reducer

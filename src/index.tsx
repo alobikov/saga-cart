@@ -6,14 +6,15 @@ import {Provider} from 'react-redux'
 import './index.css'
 import store from './store'
 import {loadUser} from "./store/sagas/actions";
-ReactDOM.render(
-  <React.StrictMode>
-      <Provider store={store}>
 
-    <App />
-      </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+
+            <App/>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 store.dispatch(loadUser('U10000'))

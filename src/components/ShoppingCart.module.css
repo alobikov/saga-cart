@@ -10,13 +10,17 @@
 
 .leftColumn {
     min-width: calc(50% - var(--gap) / 2);
-    background-color: beige;
 }
 
 
 .rightColumn {
     min-width: calc(50% - var(--gap) / 2);
-    background-color: gray;
+}
+
+.rightColumnItem {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 16px 20px 0px;
 }
 
 .checkoutContainer {

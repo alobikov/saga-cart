@@ -4,12 +4,14 @@ import * as cartAction from '../cart'
 import {ICart} from '../../types/types'
 import {setItemQuantityIsFetching} from "../ui";
 
-export function* handleIncreaseItemQuantity({payload}:{payload: string}) {
+export function* handleIncreaseItemQuantity({payload}: { payload: string }) {
     yield put(setItemQuantityIsFetching(true))
     const owner: string = yield select(state => state.cart.owner)
     const response: Response = yield fetch(`http://localhost:8081/cart/add/${owner}/${payload}`)
     const data: ICart = yield call([response, response.json])
-    yield put(cartAction.loaded(data))
+    const newQuantity = data.items.find(item => item.id === payload)?.quantity
+    if (newQuantity !== undefined)
+        yield put(cartAction.quantitySet({id: payload, quantity: newQuantity}))
     yield put(setItemQuantityIsFetching(false))
 }
 
@@ -18,7 +20,9 @@ export function* handleDecreaseItemQuantity({payload}: { payload: string }) {
     const owner: string = yield select(state => state.cart.owner)
     const response: Response = yield fetch(`http://localhost:8081/cart/remove/${owner}/${payload}`)
     const data: ICart = yield call([response, response.json])
-    yield put(cartAction.loaded(data))
+    const newQuantity = data.items.find(item => item.id === payload)?.quantity
+    if (newQuantity !== undefined)
+        yield put(cartAction.quantitySet({id: payload, quantity: newQuantity}))
     yield put(setItemQuantityIsFetching(false))
 }
 
