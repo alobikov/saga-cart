@@ -1,5 +1,5 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from '../store'
 import styles from './ShoppingCart.module.css'
 import UserInfo from "./UserInfo";
@@ -7,8 +7,10 @@ import CartItemList from "./CartItemList";
 import {createSelector} from '@reduxjs/toolkit'
 import {IItem, ICartItem, IItemPrice} from "../types/types";
 import {fetchStatus} from "../store/ui";
+import {toggleCheckout} from "../store/sagas/actions";
 
 const MyComponent = () => {
+        const dispatch = useDispatch()
         const user = useSelector((state: RootState) => state.user)
         const {shippingFetchStatus} = useSelector((state: RootState) => state.ui)
         const {shippingCost, taxRate, canCheckout} = useSelector((state: RootState) => state.cart)
@@ -34,7 +36,11 @@ const MyComponent = () => {
                 <div className={styles.rightColumn}>
 
                     <div className={styles.checkoutContainer}>
-                        <button disabled={!canCheckout} className={styles.btnCheckout}>Checkout</button>
+                        <button onClick={dispatch(toggleCheckout)}
+                                disabled={!canCheckout}
+                                className={styles.btnCheckout}>
+                            Checkout
+                        </button>
                     </div>
                     <h2 className={styles.title}>Order Summary</h2>
                     <hr/>

@@ -1,3 +1,11 @@
+export enum CheckoutPhase {
+    QUANTITY_VERIFICATION = "CHECKOUT_PHASE_QUANTITY_VERIFICATION",
+    VALIDATE_CREDIT_CARD = "CHECKOUT_PHASE_VALIDATE_CREDIT_CARD",
+    PURCHASE_FINALIZATION = "CHECKOUT_PHASE_PURCHASE_FINALIZATION",
+    ERROR = "CHECKOUT_PHASE_ERROR",
+    SUCCESS = 'CHECKOUT_PHASE_SUCCESS'
+}
+
 export interface IUser {
     id: string
     name: string;
@@ -17,6 +25,7 @@ export interface ICart {
     shippingCost: number;
     taxRate: number;
     canCheckout: boolean;
+    checkoutPhase: CheckoutPhase
 }
 
 export interface IItem {
@@ -30,7 +39,7 @@ export interface IItem {
     weight: number;
 }
 
-export interface  IItemPrice {
+export interface IItemPrice {
     id: string,
     symbol: string,
     price: number
