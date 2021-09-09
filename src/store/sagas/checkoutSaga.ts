@@ -6,10 +6,17 @@ import {IUser} from "../../types/types";
 import {setCheckoutPhase} from "../cart";
 
 export function* validateCart(userId: string) {
+    const response: Response = yield call(fetch, `http://localhost:8081/card/validate/${userId}`)
+    const {validated} = yield call([response, response.json])
+    return validated
+}
+
+export function* validateCreditCard(userId: string) {
     const response: Response = yield call(fetch, `http://localhost:8081/cart/validate/${userId}`)
     const {validated} = yield call([response, response.json])
     return validated
 }
+
 
 export function* checkout() {
     // 1. verify items on stock
@@ -20,6 +27,13 @@ export function* checkout() {
     yield put(setCheckoutPhase(CheckoutPhase.QUANTITY_VERIFICATION))
     const isCartValid:boolean = yield call(validateCart, user.id)
     if(!isCartValid) {
+        yield put(setCheckoutPhase(CheckoutPhase.ERROR))
+        return
+    }
+
+    yield put(setCheckoutPhase((CheckoutPhase.VALIDATE_CREDIT_CARD)))
+    const isCardValid: boolean = yield call(validateCreditCard, user.id)
+    if(!isCardValid) {
         yield put(setCheckoutPhase(CheckoutPhase.ERROR))
         return
     }

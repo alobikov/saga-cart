@@ -13,11 +13,10 @@ const checkoutPhaseMessage = {
     [CheckoutPhase.ERROR]: "Checkout failed",
     [CheckoutPhase.SUCCESS]: "Checkout is completed successfully!"
 }
-type A = keyof CheckoutPhase
+
 const Checkout = () => {
     const checkoutPhase: CheckoutPhase = useSelector((state: RootState) => state.cart.checkoutPhase)
     const message = checkoutPhaseMessage[`${checkoutPhase}`]
-    console.log(checkoutPhase)
 
     return (
         <div className={styles.container}>
