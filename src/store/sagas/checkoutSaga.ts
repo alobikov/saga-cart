@@ -6,17 +6,22 @@ import {IUser} from "../../types/types";
 import {setCheckoutPhase} from "../cart";
 
 export function* validateCart(userId: string) {
-    const response: Response = yield call(fetch, `http://localhost:8081/card/validate/${userId}`)
-    const {validated} = yield call([response, response.json])
-    return validated
-}
-
-export function* validateCreditCard(userId: string) {
     const response: Response = yield call(fetch, `http://localhost:8081/cart/validate/${userId}`)
     const {validated} = yield call([response, response.json])
     return validated
 }
 
+export function* validateCreditCard(userId: string) {
+    const response: Response = yield call(fetch, `http://localhost:8081/card/validate/${userId}`)
+    const {validated} = yield call([response, response.json])
+    return validated
+}
+
+export function* executePurchase(userId: string) {
+    const response: Response = yield call(fetch, `http://localhost:8081/card/charge/${userId}`)
+    const {success} = yield call([response, response.json])
+    return success
+}
 
 export function* checkout() {
     // 1. verify items on stock
@@ -38,6 +43,14 @@ export function* checkout() {
         return
     }
 
+    yield put(setCheckoutPhase((CheckoutPhase.PURCHASE_FINALIZATION)))
+    const isPurchaseSuccessful: boolean = yield call(executePurchase, user.id)
+    if(!isPurchaseSuccessful) {
+        yield put(setCheckoutPhase(CheckoutPhase.ERROR))
+        return
+    }
+
+   yield put(setCheckoutPhase(CheckoutPhase.SUCCESS))
 }
 
 export function* checkoutSaga() {
