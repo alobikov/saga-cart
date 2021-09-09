@@ -40,14 +40,24 @@ const MyComponent = () => {
                     <hr/>
                     {
                         subTotal ?
-                                <p className={styles.rightColumnItem}>{`Sub Total: ${subTotal?.toFixed(2)}`}</p>
+                            <p className={styles.rightColumnItem}>
+                                <span>Sub Total</span>
+                                <span>${subTotal?.toFixed(2)}</span>
+                            </p>
                             : null
                     }
                     {
                         shippingFetchStatus === fetchStatus.FETCHED
                             ? <>
-                                <p className={styles.rightColumnItem}>{`Shipping Cost: ${shippingCost}`}</p>
-                                <p className={styles.rightColumnItem}>{`Tax: ${((subTotal! + shippingCost) * taxRate).toFixed(2)}`}</p>
+                                <p className={styles.rightColumnItem}>
+                                    <span>Shipping Cost</span>
+                                    <span>${shippingCost}</span>
+                                </p>
+                                <p className={styles.rightColumnItem}>
+                                    <span>Tax</span>
+                                    <span>${((subTotal! + shippingCost) * taxRate).toFixed(2)}</span>
+                                </p>
+
                             </>
                             : null
                     }
