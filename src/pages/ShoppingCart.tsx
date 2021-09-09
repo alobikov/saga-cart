@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from '../store'
 import styles from './ShoppingCart.module.css'
 import UserInfo from "./UserInfo";
 import CartItemList from "./CartItemList";
-import {createSelector} from '@reduxjs/toolkit'
-import {IItem, ICartItem, IItemPrice} from "../types/types";
+import {createSelector} from '@reduxjs/toolkit';
 import {fetchStatus} from "../store/ui";
-import {toggleCheckout} from "../store/sagas/actions";
+import {loadUser} from "../store/sagas/actions";
+import {useHistory} from 'react-router-dom';
+import {Page} from "../types/enums";
+
 
 const MyComponent = () => {
         const dispatch = useDispatch()
+        const history = useHistory()
         const user = useSelector((state: RootState) => state.user)
         const {shippingFetchStatus} = useSelector((state: RootState) => state.ui)
         const {shippingCost, taxRate, canCheckout} = useSelector((state: RootState) => state.cart)
+
         const selectSubTotal = createSelector(
             [(state: RootState) => state.cart.items,
                 state => state.itemsPrice],
@@ -22,6 +26,11 @@ const MyComponent = () => {
                     return cartItems.reduce((a, c) => a + itemsPrice[c?.id]?.price * c.quantity, 0)
                 }
             }
+        )
+
+        useEffect(() => {
+                dispatch(loadUser('U10000'))
+            }, []
         )
 
         const subTotal = useSelector(selectSubTotal)
@@ -36,7 +45,7 @@ const MyComponent = () => {
                 <div className={styles.rightColumn}>
 
                     <div className={styles.checkoutContainer}>
-                        <button onClick={dispatch(toggleCheckout)}
+                        <button onClick={(e) => history.push(Page.CHECKOUT)}
                                 disabled={!canCheckout}
                                 className={styles.btnCheckout}>
                             Checkout

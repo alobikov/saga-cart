@@ -6,6 +6,11 @@ export enum CheckoutPhase {
     SUCCESS = 'CHECKOUT_PHASE_SUCCESS'
 }
 
+export enum navPage {
+    CHECKOUT ="/checkout",
+    HOME='/'
+}
+
 export interface IUser {
     id: string
     name: string;

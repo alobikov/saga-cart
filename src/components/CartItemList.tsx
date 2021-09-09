@@ -22,7 +22,7 @@ const CartItemList: React.FC = () => {
     return (
         <div>
             {
-                items.map(item =>
+                items.map((item) =>
                     <CartItem
                         key={item.id}
                         item={item}
