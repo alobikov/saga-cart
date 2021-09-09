@@ -15,6 +15,7 @@ export interface ICart {
     owner: string;
     items: ICartItem[];
     shippingCost: number;
+    taxRate: number;
 }
 
 export interface IItem {

@@ -20,7 +20,8 @@ const CartItem: React.FC<ItemDetailsProps> =
      }) => {
 
         return (
-            <div>
+            <div style={{paddingTop: '10px'}}>
+                <hr className="color-lightgray mb-8"/>
                 {/*<pre>{JSON.stringify(itemPrice,null,2)}</pre>*/}
                 <h3 className="mb-8">{itemDetails?.name}</h3>
                 {
@@ -32,7 +33,6 @@ const CartItem: React.FC<ItemDetailsProps> =
                     <button className="btn-outlined" disabled={isFetching} onClick={onDecrement}>-</button>
                     <button className="btn-outlined" disabled={isFetching} onClick={onIncrement}>+</button>
                 </div>
-                <hr className="color-lightgray"/>
             </div>
         );
     };

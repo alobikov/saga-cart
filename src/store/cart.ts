@@ -19,8 +19,13 @@ export const cartSlice = createSlice({
             const {id, quantity} = action.payload
             const item = cart.items.find(item => item.id === id)
             if (item) item.quantity = quantity
+        },
+
+        taxRateSet: (cart: ICart, action: PayloadAction<number>) => {
+            cart.taxRate = action.payload
         }
+
     }
 })
-export const {loaded, shippingCostReceived, quantitySet} = cartSlice.actions
+export const {loaded, shippingCostReceived, quantitySet, taxRateSet} = cartSlice.actions
 export default cartSlice.reducer
