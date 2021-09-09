@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from '../store'
 import styles from './ShoppingCart.module.css'
-import UserInfo from "./UserInfo";
-import CartItemList from "./CartItemList";
+import UserInfo from "../components/UserInfo";
+import CartItemList from "../components/CartItemList";
 import {createSelector} from '@reduxjs/toolkit';
 import {fetchStatus} from "../store/ui";
 import {loadUser} from "../store/sagas/actions";

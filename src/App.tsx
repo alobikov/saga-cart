@@ -1,11 +1,14 @@
 import React from 'react';
-import ShoppingCart from "./components/ShoppingCart";
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
+import {ConnectedRouter} from 'connected-react-router'
+import {history} from './store'
 import './App.modules.css'
+import ShoppingCart from "./pages/ShoppingCart";
+import Checkout from "./pages/Checkout";
 
 function App() {
     return (
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
             <Switch>
                 <Route path='/' exact>
                     <div className="container">
@@ -13,10 +16,12 @@ function App() {
                     </div>
                 </Route>
                 <Route path='/checkout'>
-                    Checkout page
+                    <div className="container">
+                        <Checkout/>
+                    </div>
                 </Route>
             </Switch>
-        </BrowserRouter>
+        </ConnectedRouter>
     );
 }
 

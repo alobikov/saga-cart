@@ -17,5 +17,4 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-store.dispatch(loadUser('U10000'))
 reportWebVitals();
