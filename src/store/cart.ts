@@ -31,5 +31,5 @@ export const cartSlice = createSlice({
 
     }
 })
-export const {loaded, shippingCostReceived, quantitySet, taxRateSet} = cartSlice.actions
+export const {loaded, shippingCostReceived, quantitySet, taxRateSet, setCanCheckout} = cartSlice.actions
 export default cartSlice.reducer
