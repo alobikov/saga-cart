@@ -1,7 +1,7 @@
 import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 import {ICart, ICartItem} from "../types/types";
 
-const initialState = <ICart>{}
+const initialState = <ICart>{canCheckout: false}
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -23,6 +23,10 @@ export const cartSlice = createSlice({
 
         taxRateSet: (cart: ICart, action: PayloadAction<number>) => {
             cart.taxRate = action.payload
+        },
+
+        setCanCheckout: (cart: ICart, action: PayloadAction<boolean>) => {
+            cart.canCheckout = action.payload
         }
 
     }

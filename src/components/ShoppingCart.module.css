@@ -43,6 +43,10 @@
     background-color: cornflowerblue;
 }
 
+.btnCheckout[disabled] {
+    background-color: lightgray;
+}
+
 .title {
     padding: 16px 0;
     text-align: center;

@@ -16,6 +16,7 @@ export interface ICart {
     items: ICartItem[];
     shippingCost: number;
     taxRate: number;
+    canCheckout: boolean;
 }
 
 export interface IItem {

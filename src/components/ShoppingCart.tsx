@@ -11,7 +11,7 @@ import {fetchStatus} from "../store/ui";
 const MyComponent = () => {
         const user = useSelector((state: RootState) => state.user)
         const {shippingFetchStatus} = useSelector((state: RootState) => state.ui)
-        const {shippingCost, taxRate} = useSelector((state: RootState) => state.cart)
+        const {shippingCost, taxRate, canCheckout} = useSelector((state: RootState) => state.cart)
         const selectSubTotal = createSelector(
             [(state: RootState) => state.cart.items,
                 state => state.itemsPrice],
@@ -34,7 +34,7 @@ const MyComponent = () => {
                 <div className={styles.rightColumn}>
 
                     <div className={styles.checkoutContainer}>
-                        <button className={styles.btnCheckout}>Checkout</button>
+                        <button disabled={!canCheckout} className={styles.btnCheckout}>Checkout</button>
                     </div>
                     <h2 className={styles.title}>Order Summary</h2>
                     <hr/>
