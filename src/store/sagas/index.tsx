@@ -6,7 +6,7 @@ import {itemQuantitySaga} from "./itemQuantitySaga";
 import {itemsPriceSaga} from "./itemsPriceSaga";
 import {shippingSaga} from "./shippingSaga";
 import {taxSaga} from "./taxSaga";
-import {checkoutSaga} from "./checkoutSaga";
+import {checkoutAvailabilitySaga} from "./checkoutAvailabilitySaga";
 
 export default function* rootSaga() {
     yield fork(userSaga);
@@ -17,5 +17,5 @@ export default function* rootSaga() {
     yield fork(fetchCartSaga);
     yield fork(shippingSaga)
     yield fork(taxSaga);
-    yield fork(checkoutSaga);
+    yield fork(checkoutAvailabilitySaga);
 }

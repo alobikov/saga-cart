@@ -4,7 +4,7 @@ import {fetchStatus} from "../ui";
 import {setCanCheckout} from "../cart";
 
 
-export function* checkoutSaga() {
+export function* checkoutAvailabilitySaga() {
     //@ts-ignore
     const checkoutAvailabilityChannel: any = yield actionChannel(ui.setShippingFetchStatus.type)
     while (true) {
