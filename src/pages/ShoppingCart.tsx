@@ -28,12 +28,19 @@ const MyComponent = () => {
             }
         )
 
+        const subTotal = useSelector(selectSubTotal) || 0
+
+        const calcTax =
+            (subTotal: number = 0,
+             shippingCost: number,
+             taxRate: number) => ((subTotal + shippingCost) * taxRate)
+
+        const taxPrice = calcTax(subTotal, shippingCost, taxRate)
+
         useEffect(() => {
                 dispatch(loadUser('U10000'))
             }, []
         )
-
-        const subTotal = useSelector(selectSubTotal)
 
         return (
             <div className={styles.container}>
@@ -57,7 +64,7 @@ const MyComponent = () => {
                         subTotal ?
                             <p className={styles.rightColumnItem}>
                                 <span>Sub Total</span>
-                                <span>${subTotal?.toFixed(2)}</span>
+                                <span>${subTotal.toFixed(2)}</span>
                             </p>
                             : null
                     }
@@ -70,8 +77,13 @@ const MyComponent = () => {
                                 </p>
                                 <p className={styles.rightColumnItem}>
                                     <span>Tax</span>
-                                    <span>${((subTotal! + shippingCost) * taxRate).toFixed(2)}</span>
+                                    <span>${taxPrice.toFixed(2)}</span>
                                 </p>
+
+                                <b className={styles.rightColumnItem}>
+                                    <span>Total</span>
+                                    <span>${(taxPrice + subTotal + shippingCost).toFixed(2)}</span>
+                                </b>
 
                             </>
                             : null
